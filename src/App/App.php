@@ -4,8 +4,10 @@
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../../vendor/autoload.php';
-
+$aux = new \DI\Container();
+AppFactory::setContainer($aux);
 $app = AppFactory::create();
+$container = $app->getContainer();
 
 //$app->get('/', function (Request $request, Response $response, $args) {
 //    $response->getBody()->write("Hello world!");
@@ -14,6 +16,7 @@ $app = AppFactory::create();
 
 
 require __DIR__ . '/Routes.php';
+require __DIR__ . '/Configs.php';
 
 $app->run();
 ?>
