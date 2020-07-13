@@ -6,13 +6,13 @@ use App\Controllers\BaseController;
 
 class BarController extends BaseController{
     public function getAll($request, $response, $args){
-        $configuraciones = $this->container->get('db_settings');
+        $pdo = $configuraciones = $this->container->get('db');
 
-        echo '<pre>';
-        var_dump($configuraciones);
-        echo '</pre>';
+        $query = $pdo->query("SELECT * FROM bar");
 
-        $response->getBody()->write('Hello World!');
-        return $response;
+        $response->getBody()->write(json_encode($query->fetchAll()));
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }
